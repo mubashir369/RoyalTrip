@@ -1,14 +1,24 @@
-module.exports ={
-    home:(req,res)=>{
-        res.send("hhhhh")
-    },
-    login:(req,res)=>{
-        res.send("login")
-    },
-    loginWithGoogle:(req,res)=>{
-        console.log("ffff");
-        console.log(req.body);
-        res.json({status:"ok"})
-    }
-
-}
+const userHelper = require("../helpers/userHelpers");
+module.exports = {
+  loginWithGoogle: (req, res) => {
+    userHelper
+      .login(req.body)
+      .then(() => {
+        res.json({ status: "ok" });
+      })
+      .catch(() => {
+        res.json({ status: "error" });
+      });
+  },
+  signUp: (req, res) => {
+    console.log("sign");
+    userHelper
+      .signUp(req.body)
+      .then(() => {
+        res.json({ status: "ok" });
+      })
+      .catch((err) => {
+        res.json({ status: "error" });
+      });
+  },
+};
