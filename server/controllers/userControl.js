@@ -15,7 +15,7 @@ module.exports = {
     userHelper
       .signUp(req.body)
       .then(() => {
-        res.json({ status: "ok" });
+        res.json({ status: "ok", user:true });
       })
       .catch((err) => {
         res.json({ status: "error" });
