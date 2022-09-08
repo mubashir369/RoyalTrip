@@ -2,15 +2,6 @@ const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 module.exports = {
-  login: (data) => {
-    return new Promise((resolve, reject) => {
-      try {
-        resolve();
-      } catch {
-        reject();
-      }
-    });
-  },
   signUp: (data) => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -43,6 +34,21 @@ module.exports = {
       } catch (err) {
         console.log(err);
         reject(err);
+      }
+    });
+  },
+  login: (data) => {
+    return new Promise(async (resolve, reject) => {
+      const user = await User.findOne({ email: data.email });
+      if (user) {
+        const validate = await bcrypt.compare(data.password, user.password);
+        if (validate) {
+          resolve();
+        } else {
+          reject({ status: "Password Incorrect" });
+        }
+      } else {
+        reject({ status: "User Not Found" });
       }
     });
   },
