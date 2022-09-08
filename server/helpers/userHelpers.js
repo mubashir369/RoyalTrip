@@ -1,5 +1,6 @@
 const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 module.exports = {
   login: (data) => {
     return new Promise((resolve, reject) => {
@@ -14,7 +15,6 @@ module.exports = {
     return new Promise(async (resolve, reject) => {
       try {
         const password = await bcrypt.hash(data.password, 10);
-        console.log(password);
         await User.create({
           name: data.name,
           email: data.email,
@@ -25,6 +25,24 @@ module.exports = {
         console.log(error);
         console.log("this is catck");
         reject(error);
+      }
+    });
+  },
+  getToken: (email) => {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await User.findOne({ email: email });
+        const token = jwt.sign(
+          {
+            name: user.name,
+            email: user.email,
+          },
+          "secret123"
+        );
+        resolve(token);
+      } catch (err) {
+        console.log(err);
+        reject(err);
       }
     });
   },

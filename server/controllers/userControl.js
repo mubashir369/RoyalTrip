@@ -1,4 +1,5 @@
 const userHelper = require("../helpers/userHelpers");
+
 module.exports = {
   loginWithGoogle: (req, res) => {
     userHelper
@@ -11,14 +12,24 @@ module.exports = {
       });
   },
   signUp: (req, res) => {
-    console.log("sign");
+  
     userHelper
       .signUp(req.body)
       .then(() => {
-        res.json({ status: "ok", user:true });
+        userHelper.getToken(req.body.email).then((token)=>{
+     
+          res.json({status:"Done", user:true ,token:token })
+        }).catch(()=>{
+          console.log(req.body.email);
+          res.json({ status: "User Not Fount" ,user:false });  
+        })
+    
       })
       .catch((err) => {
-        res.json({ status: "error" });
+        res.json({ status: "Email Already Exist" ,user:false });
       });
   },
+  getToken:(req,res)=>{
+console.log(req.body);
+  }
 };
