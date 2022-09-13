@@ -14,7 +14,6 @@ module.exports = {
         resolve();
       } catch (error) {
         console.log(error);
-        console.log("this is catck");
         reject(error);
       }
     });

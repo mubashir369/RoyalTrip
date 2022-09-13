@@ -3,6 +3,7 @@ const userHelper = require("../helpers/userHelpers");
 
 module.exports = {
   signUp: (req, res) => {
+    console.log("SignUp api call Received");
     userHelper
       .signUp(req.body)
       .then(() => {
@@ -17,10 +18,11 @@ module.exports = {
           });
       })
       .catch((err) => {
-        res.json({ status: "Email Already Exist", user: false });
+        res.json({ status: `${req.body.email} Already Exist`, user: false });
       });
   },
   userLogin: (req, res) => {
+    console.log("login api call Received");
     userHelper
       .login(req.body)
       .then(() => {
