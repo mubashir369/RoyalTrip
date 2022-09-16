@@ -23,7 +23,7 @@ try {
 app.use(express.json());
 app.use(cors());
 app.use("/", userRouter);
-app.use("/admin", adminRouter);
+app.use("/api/admin", adminRouter);
 
 app.listen(port, () => {
   console.log(`server start on port ${port}`);

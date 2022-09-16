@@ -1,4 +1,3 @@
-const { json } = require("express");
 const userHelper = require("../helpers/userHelpers");
 
 module.exports = {

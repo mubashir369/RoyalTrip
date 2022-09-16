@@ -1,7 +1,6 @@
 const express = require("express");
+const adminControl = require("../controllers/adminControl");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  console.log("adminApi Called");
-});
+router.post("/", adminControl.adminLogin);
 module.exports = router;
