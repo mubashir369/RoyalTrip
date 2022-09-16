@@ -9,7 +9,9 @@ module.exports = {
         await User.create({
           name: data.name,
           email: data.email,
+          joinDate: new Date(),
           password: password,
+          
         });
         resolve();
       } catch (error) {
@@ -26,6 +28,7 @@ module.exports = {
           {
             name: user.name,
             email: user.email,
+            date:user.joinDate
           },
           "secret123"
         );
