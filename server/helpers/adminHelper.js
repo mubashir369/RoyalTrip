@@ -5,8 +5,9 @@ const jwt = require("jsonwebtoken");
 module.exports = {
   login: (data) => {
     return new Promise(async (resolve, reject) => {
-      try {
         const admin = await Admin.findOne({ email: data.adminEmail });
+      try {
+        
         if (data.adminEmail === admin.email) {
           const validate = await bcrypt.compare(
             data.adminPassword,
